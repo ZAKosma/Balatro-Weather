@@ -1,11 +1,17 @@
 {
-    "id": "example_mod",
-    "name": "Example Mod",
+    "id": "weather_mod",
+    "name": "Weather Mod",
     "version": "1.0.0",
-    "description": [
-        "This is an example mod."
-    ],
-    "author": "BalamodTeam",
+    "description": ["Adds dynamic weather effects to all blinds"],
+    "author": "Zachary Kosma",
     "load_before": [],
-    "load_after": []
+    "load_after": [],
+    "commands": [
+        {
+            "name": "weather_reroll",
+            "lua_path": "commands.weather_reroll",
+            "short_description": "Rerolls the current weather effect.",
+            "usage": "Usage: weather_reroll"
+        }
+    ]
 }
