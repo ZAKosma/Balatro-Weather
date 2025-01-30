@@ -32,6 +32,7 @@ local mod_config = {}
 local function on_enable()
     logger:info("Weather Mod enabled")
 
+    -- Initialize custom blinds
     if type(blind_handler.initialize_blinds) == "function" then
         local success, err = pcall(blind_handler.initialize_blinds)
         if not success then
@@ -39,6 +40,16 @@ local function on_enable()
         end
     else
         logger:error("blind_handler.initialize_blinds is missing or not a function")
+    end
+
+    -- Override blind selection to force weather effects
+    if type(blind_handler.override_blind_selection) == "function" then
+        local success, err = pcall(blind_handler.override_blind_selection)
+        if not success then
+            logger:error("Failed to override blind selection: " .. tostring(err))
+        end
+    else
+        logger:error("blind_handler.override_blind_selection is missing or not a function")
     end
 end
 
@@ -51,6 +62,7 @@ end
 local function on_game_load(args)
     logger:info("Game load started")
 
+    -- Load mod configuration
     if balamod and balamod.mods and balamod.mods[mod_id] and type(balamod.mods[mod_id].load_config) == "function" then
         mod_config = balamod.mods[mod_id].load_config() or {}
     else
